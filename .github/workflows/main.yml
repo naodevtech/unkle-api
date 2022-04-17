@@ -1,5 +1,10 @@
 name: Deploy
 
+on:
+  push:
+    branches:
+      - workflow/pipelineDeployHeroku
+
 jobs:
   build:
     runs-on: ubuntu-latest
