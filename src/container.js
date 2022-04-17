@@ -10,6 +10,9 @@ import bcrypt from 'bcrypt';
 import Server from './config/server';
 import config from './config/environment';
 
+import { ApiError, handleError } from './helpers/error';
+import responseHandler from './helpers/response';
+
 const container = createContainer();
 
 const router = Router();
@@ -20,6 +23,9 @@ container.register({
   router: asValue(router),
   cors: asValue(cors),
   path: asValue(path),
+  ApiError: asValue(ApiError),
+  handleError: asValue(handleError),
+  responseHandler: asValue(responseHandler),
   cookieParser: asValue(cookieParser),
   jwt: asValue(jwt),
   bcrypt: asValue(bcrypt)
