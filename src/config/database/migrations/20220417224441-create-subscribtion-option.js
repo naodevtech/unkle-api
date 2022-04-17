@@ -10,11 +10,21 @@ module.exports = {
       },
       subscribtionId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.UUID,
+        references: {
+          model: 'Subscribtions',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       contractOptionId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.UUID,
+        references: {
+          model: 'ContractOptions',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
