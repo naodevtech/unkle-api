@@ -8,7 +8,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasMany(models.SubcribtionOption, {
+        foreignKey: 'subscribtionId',
+        onDelete: 'CASCADE'
+      });
+      this.belongsTo(models.User, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      });
+      this.belongsTo(models.Contract, {
+        foreignKey: 'contractId',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Subscribtion.init(
