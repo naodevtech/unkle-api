@@ -1,10 +1,13 @@
 class Server {
-  constructor({ express, cors, routes, cookieParser }) {
+  constructor({ express, cors, routes, cookieParser, handleError }) {
     this.app = express();
     this.initializeBodyParsing(express);
     this.initializeApplicationCors(cors);
     this.initializeMiddlewares({ cookieParser });
     this.initializeApplicationRouter(routes);
+    this.app.use((err, request, response, next) => {
+      handleError(err, response);
+    });
   }
 
   initializeBodyParsing(express) {
