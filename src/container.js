@@ -6,10 +6,12 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import multer from 'multer';
 
 import Server from './config/server';
 import config from './config/environment';
 import db from './config/database/models';
+import configCloudinary from './config/cloudinary';
 
 import { ApiError, handleError } from './helpers/error';
 import responseHandler from './helpers/response';
@@ -21,6 +23,9 @@ const container = createContainer();
 const router = Router();
 
 const jwtService = new JwtService(jwt, config.jwt_secret);
+
+const storage = multer.diskStorage({});
+const upload = multer({ storage: storage });
 
 // db.sequelize.sync({
 //   alter: true
@@ -37,6 +42,8 @@ container.register({
   handleError: asValue(handleError),
   responseHandler: asValue(responseHandler),
   jwtService: asValue(jwtService),
+  upload: asValue(upload),
+  configCloudinary: asValue(configCloudinary),
   cookieParser: asValue(cookieParser),
   jwt: asValue(jwt),
   bcrypt: asValue(bcrypt)
