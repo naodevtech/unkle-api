@@ -45,9 +45,29 @@ class SubscribtionController {
     }
   };
 
-  updateSubscribtionById = async (request, response, next) => {
+  updateSubscribtionStatusById = async (request, response, next) => {
     try {
-      let subscribtion = await this.subscribtionService.updateSubscribtionById(
+      let subscribtion =
+        await this.subscribtionService.updateSubscribtionStatusById(
+          request.params.id,
+          {
+            ...request.body
+          }
+        );
+      this.responseHandler(
+        response,
+        200,
+        subscribtion,
+        'Souscription mise à jour ✅'
+      );
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  cancelSubscribtionById = async (request, response, next) => {
+    try {
+      let subscribtion = await this.subscribtionService.cancelSubscribtionById(
         request.params.id,
         {
           ...request.body
@@ -57,7 +77,7 @@ class SubscribtionController {
         response,
         200,
         subscribtion,
-        'Souscription mise à jour ✅'
+        'Souscription résiliée ! ✅'
       );
     } catch (err) {
       next(err);

@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       beginingDate: DataTypes.DATE,
       endDate: DataTypes.DATE,
+      cancelDate: DataTypes.DATE,
       userId: DataTypes.UUID,
       contractId: DataTypes.UUID
     },

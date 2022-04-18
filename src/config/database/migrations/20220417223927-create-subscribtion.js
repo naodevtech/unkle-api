@@ -20,6 +20,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      cancelDate: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       userId: {
         allowNull: false,
         type: Sequelize.UUID,

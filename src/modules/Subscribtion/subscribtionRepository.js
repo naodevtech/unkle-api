@@ -45,7 +45,7 @@ class SubscribtionRepository {
     return await this.db.Subscribtion.create(subscribtion);
   }
 
-  async updateSubscribtionById(id, subscribtion) {
+  async updateSubscribtionStatusById(id, subscribtion) {
     const subscribtionIsExist = await this.db.Subscribtion.findOne({
       where: { id: id }
     });
@@ -53,6 +53,21 @@ class SubscribtionRepository {
       throw new this.apiError(
         400,
         "Il semble que la souscription de contrat que vous voulez supprimer n'existe pas/plus 😖"
+      );
+    }
+    return await this.db.Subscribtion.update(
+      { subscribtion },
+      { where: { id: id } }
+    );
+  }
+  async cancelSubscribtionById(id, subscribtion) {
+    const subscribtionIsExist = await this.db.Subscribtion.findOne({
+      where: { id: id }
+    });
+    if (!subscribtionIsExist) {
+      throw new this.apiError(
+        400,
+        "Il semble que la souscription de contrat que vous voulez resilié n'existe pas/plus 😖"
       );
     }
     return await this.db.Subscribtion.update(
