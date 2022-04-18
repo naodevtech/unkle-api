@@ -1,3 +1,5 @@
+import ContractOptionEntity from './contractOptionEntity';
+
 class ContractOptionService {
   constructor({ contractOptionRepository, ApiError }) {
     this.contractOptionRepository = contractOptionRepository;
@@ -11,6 +13,13 @@ class ContractOptionService {
   }
 
   async createContractOptionByContract(contractOption) {
+    const contractOptionEntity = new ContractOptionEntity(contractOption);
+    if (!contractOptionEntity.validate()) {
+      throw new this.apiError(
+        400,
+        "Veuillez renseignez une option ainsi qu'un contrat ❌"
+      );
+    }
     return await this.contractOptionRepository.createContractOptionByContract(
       contractOption
     );
