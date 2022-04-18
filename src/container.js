@@ -9,16 +9,26 @@ import bcrypt from 'bcrypt';
 
 import Server from './config/server';
 import config from './config/environment';
+import db from './config/database/models';
 
 import { ApiError, handleError } from './helpers/error';
 import responseHandler from './helpers/response';
+
+import JwtService from './libs/JwtService';
 
 const container = createContainer();
 
 const router = Router();
 
+const jwtService = new JwtService(jwt, config.jwt_secret);
+
+// db.sequelize.sync({
+//   alter: true
+// });
+
 container.register({
   config: asValue(config),
+  db: asValue(db),
   express: asValue(express),
   router: asValue(router),
   cors: asValue(cors),
@@ -26,6 +36,7 @@ container.register({
   ApiError: asValue(ApiError),
   handleError: asValue(handleError),
   responseHandler: asValue(responseHandler),
+  jwtService: asValue(jwtService),
   cookieParser: asValue(cookieParser),
   jwt: asValue(jwt),
   bcrypt: asValue(bcrypt)
