@@ -17,7 +17,10 @@ class SubscribtionRouter {
       .post(subscribtionController.createSubscribtion);
     this.router
       .route('/subscribtions/:id')
-      .patch(subscribtionController.updateSubscribtionById);
+      .patch(subscribtionController.updateSubscribtionStatusById);
+    this.router
+      .route('/subscribtions/:id')
+      .patch(subscribtionController.cancelSubscribtionById);
   }
 }
 export default SubscribtionRouter;

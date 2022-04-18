@@ -31,7 +31,7 @@ class SubscribtionService {
     return await this.subscribtionRepository.createSubscribtion(subscribtion);
   }
 
-  async updateSubscribtionById(id, subscribtion) {
+  async updateSubscribtionStatusById(id, subscribtion) {
     const subscribtionEntity = new SubscribtionEntity(subscribtion);
     if (!subscribtionEntity.checkStatus()) {
       throw new this.apiError(
@@ -39,7 +39,21 @@ class SubscribtionService {
         'Veuillez renseignez un status correct (pending, active, finished, resilied) ❌'
       );
     }
-    return await this.subscribtionRepository.updateSubscribtionById(
+    return await this.subscribtionRepository.updateSubscribtionStatusById(
+      id,
+      subscribtion
+    );
+  }
+
+  async cancelSubscribtionById(id, subscribtion) {
+    const subscribtionEntity = new SubscribtionEntity(subscribtion);
+    if (!subscribtionEntity.checkStatus()) {
+      throw new this.apiError(
+        400,
+        'Veuillez renseignez un status correct (pending, active, finished, resilied) ❌'
+      );
+    }
+    return await this.subscribtionRepository.cancelSubscribtionById(
       id,
       subscribtion
     );
