@@ -8,6 +8,10 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
+      icon: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       reference: {
         allowNull: false,
         type: Sequelize.STRING
