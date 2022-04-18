@@ -1,13 +1,44 @@
 class UserController {
-  constructor({ userService, jwtService, responseHandler }) {
+  constructor({
+    userService,
+    configCloudinary,
+    jwtService,
+    responseHandler,
+    ApiError
+  }) {
     this.userService = userService;
+    this.configCloudinary = configCloudinary;
     this.jwt = jwtService;
     this.responseHandler = responseHandler;
+    this.ApiError = ApiError;
   }
 
   register = async (request, response, next) => {
     try {
-      let user = await this.userService.register({ ...request.body });
+      if (!request.file) {
+        throw new this.ApiError(
+          400,
+          "Il semble que vous n'ayez pas ajouté d'avatar ❌ "
+        );
+      }
+      const result = await this.configCloudinary.uploader.upload(
+        request.file.path
+      );
+      if (!result) {
+        throw new this.ApiError(
+          400,
+          "Il semble qu'il y ait une erreur lors de l'upload de l'image ❌ "
+        );
+      }
+
+      let user = await this.userService.register({
+        role: request.body.role,
+        avatar: result.secure_url,
+        lastname: request.body.lastname,
+        firstname: request.body.lastname,
+        email: request.body.email,
+        password: request.body.password
+      });
       this.responseHandler(
         response,
         201,
