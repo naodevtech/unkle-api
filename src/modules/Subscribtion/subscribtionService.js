@@ -26,20 +26,6 @@ class SubscribtionService {
     return await this.subscribtionRepository.createSubscribtion(subscribtion);
   }
 
-  async updateSubscribtionStatusById(id, subscribtion) {
-    const subscribtionEntity = new SubscribtionEntity(subscribtion);
-    if (!subscribtionEntity.checkStatus()) {
-      throw new this.apiError(
-        400,
-        'Veuillez renseignez un status correct (pending, active, finished, resilied) ❌'
-      );
-    }
-    return await this.subscribtionRepository.updateSubscribtionStatusById(
-      id,
-      subscribtion
-    );
-  }
-
   async cancelSubscribtionById(id, subscribtion) {
     const subscribtionEntity = new SubscribtionEntity(subscribtion);
     if (!subscribtionEntity.checkStatus()) {
@@ -48,10 +34,7 @@ class SubscribtionService {
         'Veuillez renseignez un status correct (pending, active, finished, resilied) ❌'
       );
     }
-    return await this.subscribtionRepository.cancelSubscribtionById(
-      id,
-      subscribtion
-    );
+    return await this.subscribtionRepository.cancelSubscribtionById(id);
   }
 }
 

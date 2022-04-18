@@ -27,8 +27,16 @@ class ContractRepository {
 
   async getContractById(id) {
     const contract = await this.db.Contract.findOne({
-      where: { id: id }
+      where: { id: id },
+      include: [
+        {
+          model: this.db.ContractOption,
+          attributes: ['optionId'],
+          include: [{ model: this.db.Option, required: true }]
+        }
+      ]
     });
+
     if (!contract) {
       throw new this.apiError(
         400,

@@ -6,7 +6,13 @@ class SubscribtionRepository {
 
   async getAllSubscribtionsByUser(id) {
     const subscribtion = await this.db.Subscribtion.findAll({
-      where: { userId: id }
+      where: { userId: id },
+      include: [
+        {
+          model: this.db.Contract,
+          attributes: ['id', 'icon', 'reference', 'name']
+        }
+      ]
     });
     if (!subscribtion) {
       throw new this.apiError(
@@ -45,22 +51,7 @@ class SubscribtionRepository {
     return await this.db.Subscribtion.create(subscribtion);
   }
 
-  async updateSubscribtionStatusById(id, subscribtion) {
-    const subscribtionIsExist = await this.db.Subscribtion.findOne({
-      where: { id: id }
-    });
-    if (!subscribtionIsExist) {
-      throw new this.apiError(
-        400,
-        "Il semble que la souscription de contrat que vous voulez supprimer n'existe pas/plus 😖"
-      );
-    }
-    return await this.db.Subscribtion.update(
-      { subscribtion },
-      { where: { id: id } }
-    );
-  }
-  async cancelSubscribtionById(id, subscribtion) {
+  async cancelSubscribtionById(id) {
     const subscribtionIsExist = await this.db.Subscribtion.findOne({
       where: { id: id }
     });
@@ -71,7 +62,7 @@ class SubscribtionRepository {
       );
     }
     return await this.db.Subscribtion.update(
-      { subscribtion },
+      { status: 'resilied' },
       { where: { id: id } }
     );
   }
