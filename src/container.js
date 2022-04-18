@@ -20,6 +20,9 @@ import responseHandler from './helpers/response';
 import JwtService from './libs/JwtService';
 
 import AuthMiddleWare from './middlewares/auth';
+
+import SubscribtionMiddleware from './middlewares/subscribtion';
+
 const container = createContainer();
 
 const router = Router();
@@ -27,6 +30,8 @@ const router = Router();
 const jwtService = new JwtService(jwt, config.jwt_secret);
 
 const authGuard = new AuthMiddleWare(jwtService, ApiError);
+const subscribtion = new SubscribtionMiddleware(ApiError);
+
 const csrfMiddleware = csurf({ cookie: true });
 const storage = multer.diskStorage({});
 const upload = multer({ storage: storage });
@@ -49,7 +54,10 @@ container.register({
   upload: asValue(upload),
   configCloudinary: asValue(configCloudinary),
   cookieParser: asValue(cookieParser),
+  csrfMiddleware: asValue(csrfMiddleware),
   jwt: asValue(jwt),
+  auth: asValue(authGuard),
+  subscribtion: asValue(subscribtion),
   bcrypt: asValue(bcrypt)
 });
 
