@@ -1,15 +1,12 @@
 class UserRouter {
-  constructor({ router, upload, auth, userController }) {
+  constructor({ router, auth, userController }) {
     this.router = router;
-    this.upload = upload;
     this.initializeRoutes({ userController, auth });
     return this.router;
   }
 
   initializeRoutes({ userController, auth }) {
-    this.router
-      .route('/register')
-      .post(this.upload.single('avatar'), userController.register);
+    this.router.route('/register').post(userController.register);
     this.router.route('/login').post(userController.login);
     this.router.route('/logout').post(userController.logout);
     this.router.route('/me').get(userController.me);
