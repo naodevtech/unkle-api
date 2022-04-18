@@ -1,4 +1,4 @@
-import OptionEntity from './OptionEntity';
+import OptionEntity from './optionEntity';
 
 class OptionService {
   constructor({ optionRepository, ApiError }) {
