@@ -27,7 +27,7 @@ class AuthMiddleWare {
     try {
       const token = request.cookies['auth-cookie'];
       const decoded = await this.jwt.decodeToken(token);
-      if (decoded.data.role !== 'client') {
+      if (decoded.role !== 'client') {
         throw new this.apiError(
           401,
           "Vous n'avez pas les droits pour effectuer cette requête lié uniquement au client ❌"
@@ -44,7 +44,8 @@ class AuthMiddleWare {
     try {
       const token = request.cookies['auth-cookie'];
       const decoded = await this.jwt.decodeToken(token);
-      if (decoded.data.role !== 'admin') {
+      console.log(decoded.role);
+      if (decoded.role !== 'admin') {
         throw new this.apiError(
           401,
           "Vous n'avez pas les droits pour effectuer cette requête lié à l'administrateur ❌"
