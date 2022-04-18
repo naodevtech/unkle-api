@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
+      icon: DataTypes.STRING,
       reference: DataTypes.STRING,
       name: DataTypes.STRING,
       description: DataTypes.STRING,
