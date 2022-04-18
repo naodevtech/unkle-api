@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'subscribtionId',
         onDelete: 'CASCADE'
       });
-      this.belongsTo(models.contractOption, {
+      this.belongsTo(models.ContractOption, {
         foreignKey: 'contractOptionId',
         onDelete: 'CASCADE'
       });
