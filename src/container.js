@@ -4,6 +4,7 @@ import express, { Router } from 'express';
 import cors from 'cors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import multer from 'multer';
@@ -18,12 +19,15 @@ import responseHandler from './helpers/response';
 
 import JwtService from './libs/JwtService';
 
+import AuthMiddleWare from './middlewares/auth';
 const container = createContainer();
 
 const router = Router();
 
 const jwtService = new JwtService(jwt, config.jwt_secret);
 
+const authGuard = new AuthMiddleWare(jwtService, ApiError);
+const csrfMiddleware = csurf({ cookie: true });
 const storage = multer.diskStorage({});
 const upload = multer({ storage: storage });
 
