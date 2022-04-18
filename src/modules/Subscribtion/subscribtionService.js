@@ -15,13 +15,8 @@ class SubscribtionService {
   }
 
   async createSubscribtion(subscribtion) {
+    console.log(subscribtion);
     const subscribtionEntity = new SubscribtionEntity(subscribtion);
-    if (!subscribtionEntity.validate()) {
-      throw new this.apiError(
-        400,
-        "Veuillez renseignez un contrat ainsi qu'un client ❌"
-      );
-    }
     if (!subscribtionEntity.checkStatus()) {
       throw new this.apiError(
         400,

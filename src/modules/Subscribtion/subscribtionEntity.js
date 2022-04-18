@@ -1,9 +1,18 @@
 class SubscribtionEntity {
-  constructor({ id, status, beginingDate, endDate, userId, contractId }) {
+  constructor({
+    id,
+    status,
+    beginingDate,
+    endDate,
+    cancelDate,
+    userId,
+    contractId
+  }) {
     this.id = id;
     this.status = status;
     this.beginingDate = beginingDate;
     this.endDate = endDate;
+    this.cancelDate = cancelDate;
     this.userId = userId;
     this.contractId = contractId;
   }
