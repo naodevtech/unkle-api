@@ -18,7 +18,7 @@ class UserController {
       if (!request.file) {
         throw new this.ApiError(
           400,
-          "Il semble que vous n'ayez pas ajouté d'avatar ❌ "
+          "Il semble que vous n'ayez pas ajouté d'avatar"
         );
       }
       const result = await this.configCloudinary.uploader.upload(
@@ -27,7 +27,7 @@ class UserController {
       if (!result) {
         throw new this.ApiError(
           400,
-          "Il semble qu'il y ait une erreur lors de l'upload de l'image ❌ "
+          "Il semble qu'il y ait une erreur lors de l'upload de l'image"
         );
       }
 
