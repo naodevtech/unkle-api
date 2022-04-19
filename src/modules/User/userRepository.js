@@ -14,7 +14,7 @@ class UserRepository {
     if (userExist) {
       throw new this.apiError(
         400,
-        'Un utilisateur existe déjà sous cet adresse e-mail ❌'
+        'Un utilisateur existe déjà sous cet adresse e-mail !'
       );
     } else {
       return await this.db.User.create(userData);
@@ -26,7 +26,7 @@ class UserRepository {
     if (!userExist) {
       throw new this.apiError(
         400,
-        'Il ne semble pas y avoir de compte sous cet adresse-email ❌'
+        'Il ne semble pas y avoir de compte sous cet adresse-email !'
       );
     } else {
       let checkPassword = await this.bcrypt.compareSync(
@@ -34,7 +34,7 @@ class UserRepository {
         userExist.password
       );
       if (!checkPassword) {
-        throw new this.apiError(400, 'Mot de passe incorrect ❌');
+        throw new this.apiError(400, 'Mot de passe incorrect !');
       }
       return userExist;
     }
@@ -51,7 +51,7 @@ class UserRepository {
     if (!userExist) {
       throw new this.apiError(
         400,
-        "Il semble que l'utilisateur que vous voulez modifier n'existe pas ❌ "
+        "Il semble que l'utilisateur que vous voulez modifier n'existe pas ! "
       );
     }
     return await this.db.User.update(
@@ -74,7 +74,7 @@ class UserRepository {
     if (!userExist) {
       throw new this.apiError(
         400,
-        "Il semble que l'utilisateur que vous souhaitez supprimer n'existe pas/plus 😖"
+        "Il semble que l'utilisateur que vous souhaitez supprimer n'existe pas/plus !"
       );
     }
     return await this.db.User.destroy({ where: { id: id } });
@@ -87,7 +87,7 @@ class UserRepository {
     if (!users) {
       throw new this.apiError(
         400,
-        "Il semble qu'il n'y a aucun utilisateurs ❌"
+        "Il semble qu'il n'y a aucun utilisateurs !"
       );
     }
     return users;
@@ -101,7 +101,7 @@ class UserRepository {
     if (!user) {
       throw new this.apiError(
         400,
-        "Il semble qu'il n'y ai aucun utilisateur à cet ID ❌"
+        "Il semble qu'il n'y ai aucun utilisateur à cet ID !"
       );
     }
     return user;
