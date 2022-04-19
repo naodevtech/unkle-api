@@ -19,7 +19,11 @@ class Server {
     this.app.use(
       cors({
         credentials: true,
-        origin: ['http://localhost:3000']
+        origin: [
+          'http://localhost:3000',
+          'http://unkle-front.herokuapp.com',
+          'https://unkle-front.herokuapp.com'
+        ]
       })
     );
   }
