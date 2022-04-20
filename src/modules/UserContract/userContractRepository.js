@@ -6,7 +6,8 @@ class UserContractRepository {
 
   async getAllUserContractsByUser(id) {
     const userContract = await this.db.UserContract.findAll({
-      where: { userId: id }
+      where: { userId: id },
+      include: [{ model: this.db.Contract }]
     });
     if (!userContract) {
       throw new this.apiError(
@@ -19,12 +20,15 @@ class UserContractRepository {
 
   async createUserContractByUser(userContract) {
     const userContractIsExist = await this.db.UserContract.findOne({
-      where: { contractId: userContract.contractId }
+      where: {
+        contractId: userContract.contractId,
+        userId: userContract.userId
+      }
     });
     if (userContractIsExist) {
       throw new this.apiError(
         400,
-        "Il semble qu'il y ai déjà un contrat affilié à cet utilisateur 😖"
+        "Il semble qu'il y ai déjà un conƒtrat affilié à cet utilisateur 😖"
       );
     }
     return await this.db.UserContract.create(userContract);

@@ -13,9 +13,7 @@ class AuthMiddleWare {
           'Votre session a expirée. Veuillez vous reconnecter 😣'
         );
       }
-
       const decoded = await this.jwt.decodeToken(token);
-
       request.currentUserId = decoded.id;
       next();
     } catch (err) {
@@ -44,11 +42,27 @@ class AuthMiddleWare {
     try {
       const token = request.cookies['auth-cookie'];
       const decoded = await this.jwt.decodeToken(token);
-      console.log(decoded.role);
       if (decoded.role !== 'admin') {
         throw new this.apiError(
           401,
           "Vous n'avez pas les droits pour effectuer cette requête lié à l'administrateur ❌"
+        );
+      }
+      request.currentUserId = decoded.id;
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  isAllowedForAffialiation = async (request, response, next) => {
+    try {
+      const token = request.cookies['auth-cookie'];
+      const decoded = await this.jwt.decodeToken(token);
+      if (decoded.role !== 'client') {
+        throw new this.apiError(
+          401,
+          'Vous ne pouvez pas vous affilier un contrat à vous même !'
         );
       }
       request.currentUserId = decoded.id;
