@@ -11,7 +11,6 @@ class UserContractController {
         await this.userContractService.getAllUserContractsByUser(
           request.params.id
         );
-      console.log(userContracts);
       const userContractsDto = [];
       userContracts = userContracts.map((userContract) => {
         userContractsDto.push({
