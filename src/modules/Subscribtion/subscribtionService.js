@@ -15,7 +15,6 @@ class SubscribtionService {
   }
 
   async createSubscribtion(subscribtion) {
-    console.log(subscribtion);
     const subscribtionEntity = new SubscribtionEntity(subscribtion);
     if (!subscribtionEntity.checkStatus()) {
       throw new this.apiError(
