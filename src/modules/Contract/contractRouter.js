@@ -8,6 +8,7 @@ class ContractRouter {
 
   initializeRoutes({ contractController, auth }) {
     this.router.route('/contracts').get(contractController.getAllContracts);
+    this.router.route('/contracts/:id').get(contractController.getContract);
     this.router
       .route('/contracts')
       .post(this.upload.single('icon'), contractController.createContract);

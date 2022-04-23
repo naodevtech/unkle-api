@@ -6,7 +6,28 @@ class ContractOptionRepository {
 
   async getAllContractOptionsByContract(id) {
     const contractOption = await this.db.ContractOption.findAll({
-      where: { contractId: id }
+      where: { contractId: id },
+      attributes: {
+        exclude: [
+          'id',
+          'contractId',
+          'createdAt',
+          'optionid',
+          'updatedAt',
+          'optionId'
+        ]
+      },
+      nest: true,
+      include: [
+        {
+          model: this.db.Option,
+          nest: true,
+          raw: true,
+          attributes: {
+            exclude: ['id', 'createdAt', 'updatedAt']
+          }
+        }
+      ]
     });
     if (!contractOption) {
       throw new this.apiError(

@@ -20,6 +20,15 @@ class ContractController {
     }
   };
 
+  getContract = async (request, response, next) => {
+    try {
+      let contract = await this.contractService.getContract(request.params.id);
+      this.responseHandler(response, 201, contract);
+    } catch (err) {
+      next(err);
+    }
+  };
+
   createContract = async (request, response, next) => {
     try {
       if (!request.file) {
