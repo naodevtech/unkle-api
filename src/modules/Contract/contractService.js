@@ -10,6 +10,10 @@ class ContractService {
     return await this.contractRepository.getAllContracts();
   }
 
+  async getContract(id) {
+    return await this.contractRepository.getContractById(id);
+  }
+
   async createContract(contract) {
     const contractEntity = new ContractEntity(contract);
     if (!contractEntity.validate()) {
@@ -19,10 +23,6 @@ class ContractService {
       throw new this.apiError(400, "Le status n'est pas reconnu ❌");
     }
     return await this.contractRepository.createContract(contract);
-  }
-
-  async getContract(id) {
-    return await this.contractRepository.getContractById(id);
   }
 
   async deleteContract(id) {
