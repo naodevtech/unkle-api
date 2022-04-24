@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       userId: DataTypes.UUID,
-      contractId: DataTypes.UUID
+      contractId: DataTypes.UUID,
+      beginingDate: DataTypes.DATEONLY,
+      endDate: DataTypes.DATEONLY
     },
     {
       sequelize,

@@ -10,6 +10,9 @@ class UserContractRouter {
       .route('/userContracts/:id')
       .get(userContractController.getAllUserContractsByUser);
     this.router
+      .route('/userContracts/:userId/:contractId')
+      .get(userContractController.getUserContractById);
+    this.router
       .route('/userContracts')
       .post(userContractController.createUserContractByUser);
     this.router

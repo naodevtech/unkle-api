@@ -14,15 +14,15 @@ module.exports = {
       },
       beginingDate: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       endDate: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       cancelDate: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       userId: {
         allowNull: false,
