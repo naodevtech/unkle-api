@@ -23,6 +23,13 @@ class UserContractService {
     );
   }
 
+  async getUserContractById(userId, contractId) {
+    return await this.userContractRepository.getUserContractById(
+      userId,
+      contractId
+    );
+  }
+
   async deleteUserContractById(id) {
     return await this.userContractRepository.deleteUserContractById(id);
   }

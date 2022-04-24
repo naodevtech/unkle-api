@@ -20,11 +20,39 @@ class UserContractController {
           name: userContract.dataValues.Contract.name,
           description: userContract.dataValues.Contract.description,
           status: userContract.dataValues.Contract.status,
+          beginingDate: userContract.dataValues.beginingDate,
+          endDate: userContract.dataValues.endDate,
           createdAt: userContract.dataValues.Contract.createdAt,
           updatedAt: userContract.dataValues.Contract.updatedAt
         });
       });
       this.responseHandler(response, 201, userContractsDto);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  getUserContractById = async (request, response, next) => {
+    try {
+      let userContract = await this.userContractService.getUserContractById(
+        request.params.userId,
+        request.params.contractId
+      );
+      const userContractDto = {
+        id: userContract.dataValues.Contract.id,
+        reference: userContract.dataValues.Contract.reference,
+        icon: userContract.dataValues.Contract.icon,
+        name: userContract.dataValues.Contract.name,
+        description: userContract.dataValues.Contract.description,
+        status: userContract.dataValues.Contract.status,
+        beginingDate: userContract.dataValues.beginingDate,
+        endDate: userContract.dataValues.endDate,
+        createdAt: userContract.dataValues.Contract.createdAt,
+        updatedAt: userContract.dataValues.Contract.updatedAt,
+        ContractOptions: userContract.dataValues.Contract.ContractOptions
+      };
+
+      this.responseHandler(response, 201, userContractDto);
     } catch (err) {
       next(err);
     }

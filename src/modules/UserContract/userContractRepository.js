@@ -18,6 +18,35 @@ class UserContractRepository {
     return userContract;
   }
 
+  async getUserContractById(userId, contractId) {
+    const userContract = await this.db.UserContract.findOne({
+      where: { userId: userId, contractId: contractId },
+      attributes: {
+        exclude: ['createdAt', 'userId', 'id', 'updatedAt']
+      },
+      include: [
+        {
+          model: this.db.Contract,
+          include: [
+            {
+              model: this.db.ContractOption,
+              attributes: ['optionId'],
+              include: [{ model: this.db.Option, required: true }]
+            }
+          ]
+        }
+      ]
+    });
+    if (!userContract) {
+      throw new this.apiError(
+        400,
+        "Il semble qu'il n'y ai aucun contrat à cet ID 😖"
+      );
+    }
+    console.log(userContract);
+    return userContract;
+  }
+
   async createUserContractByUser(userContract) {
     const userContractIsExist = await this.db.UserContract.findOne({
       where: {
